@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — AI Course Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand-text">AI Course Hub</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="nav-actions">
+      <span class="nav-user" id="navUser"></span>
+      <a href="../Course/index.html" class="btn-outline" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ดูเว็บไซต์
+      </a>
+      <button class="btn-ghost" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ออกจากระบบ
+      </button>
+    </div>
+  </nav>
+
+  <div class="layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <div class="side-section">
+        <div class="side-label">เมนู</div>
+        <a href="#" class="side-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          จัดการคอร์ส
+        </a>
+      </div>
+      <div class="side-section">
+        <div class="side-label">ข้อมูล</div>
+        <a href="../Login/signin.html" class="side-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          จัดการผู้ใช้
+        </a>
+      </div>
+    </aside>
+
+    <!-- ── Main ── -->
+    <main class="main">
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">คอร์สทั้งหมด</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="stat-value" id="statFree">0</div>
+            <div class="stat-label">คอร์สฟรี</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="stat-value" id="statPaid">0</div>
+            <div class="stat-label">คอร์สเสียเงิน</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="stat-value" id="statCats">0</div>
+            <div class="stat-label">หมวดหมู่</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section header -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">จัดการคอร์ส</h2>
+          <p class="section-sub">เพิ่ม แก้ไข หรือลบคอร์สที่แสดงบนหน้าหลัก</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-outline" onclick="resetToDefault()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            รีเซ็ต
+          </button>
+          <button class="btn-primary" onclick="openAddModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+              <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            เพิ่มคอร์ส
+          </button>
+        </div>
+      </div>
+
+      <!-- Table controls -->
+      <div class="table-controls">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาชื่อคอร์สหรือผู้ให้บริการ…" oninput="renderTable()" />
+        </div>
+        <select id="filterCat" class="filter-select" onchange="renderTable()">
+          <option value="">ทุกหมวดหมู่</option>
+          <option value="beginner">ผู้เริ่มต้น</option>
+          <option value="machine-learning">Machine Learning</option>
+          <option value="deep-learning">Deep Learning</option>
+          <option value="nlp">NLP</option>
+          <option value="computer-vision">Computer Vision</option>
+          <option value="llm">LLM & Prompt</option>
+        </select>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="course-table">
+          <thead>
+            <tr>
+              <th class="col-logo">โลโก้</th>
+              <th>ชื่อคอร์ส</th>
+              <th>ผู้ให้บริการ</th>
+              <th>หมวดหมู่</th>
+              <th>ระดับ</th>
+              <th>ราคา</th>
+              <th class="col-actions">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="courseTableBody"></tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ── Add / Edit Modal ── -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalTitle">เพิ่มคอร์สใหม่</h3>
+        <button class="modal-close" onclick="closeModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="courseForm" onsubmit="saveCourse(event)">
+          <input type="hidden" id="editId" />
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>ชื่อคอร์ส <span class="req">*</span></label>
+              <input type="text" id="fTitle" required placeholder="เช่น Machine Learning Crash Course" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>ผู้ให้บริการ <span class="req">*</span></label>
+              <input type="text" id="fProvider" required placeholder="เช่น Google" />
+            </div>
+            <div class="form-group">
+              <label>ราคา</label>
+              <input type="text" id="fPrice" placeholder="ฟรี / $49 / ฿990" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>URL คอร์ส <span class="req">*</span></label>
+              <div class="url-row">
+                <input type="url" id="fUrl" required placeholder="https://example.com/course" onblur="fetchLogo()" />
+                <button type="button" class="btn-fetch" onclick="fetchLogo()">ดึงโลโก้</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row logo-row">
+            <div class="form-group">
+              <label>โลโก้ (URL รูปภาพ)</label>
+              <input type="text" id="fLogo" placeholder="จะดึงอัตโนมัติจาก URL ด้านบน" oninput="previewLogo()" />
+              <div class="logo-hint">ระบบจะดึง favicon จากเว็บไซต์อัตโนมัติ</div>
+            </div>
+            <div class="logo-preview-box">
+              <img id="logoPreview" src="" alt="preview" onerror="this.style.opacity=0" onload="this.style.opacity=1" />
+              <span class="logo-preview-label">ตัวอย่าง</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>หมวดหมู่</label>
+              <select id="fCategory">
+                <option value="beginner">ผู้เริ่มต้น</option>
+                <option value="machine-learning">Machine Learning</option>
+                <option value="deep-learning">Deep Learning</option>
+                <option value="nlp">NLP</option>
+                <option value="computer-vision">Computer Vision</option>
+                <option value="llm">LLM & Prompt</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>ระดับ</label>
+              <select id="fLevel">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>ระยะเวลา</label>
+              <input type="text" id="fDuration" placeholder="เช่น 10 ชั่วโมง" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>คำอธิบายสั้น</label>
+              <textarea id="fDesc" rows="2" placeholder="สรุปสั้นๆ ว่าคอร์สนี้สอนอะไร"></textarea>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>รายละเอียดเต็ม</label>
+              <textarea id="fDetail" rows="3" placeholder="อธิบายเนื้อหาโดยละเอียด"></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-outline" onclick="closeModal()">ยกเลิก</button>
+            <button type="submit" class="btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              บันทึก
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Delete Confirm Modal ── -->
+  <div class="modal-overlay" id="deleteOverlay" onclick="closeDeleteOutside(event)">
+    <div class="modal-box modal-sm">
+      <div class="modal-header">
+        <h3>ยืนยันการลบ</h3>
+        <button class="modal-close" onclick="closeDelete()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="delete-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="delete-text">คุณต้องการลบคอร์ส</p>
+        <p class="delete-name">"<span id="deleteName"></span>"</p>
+        <p class="delete-warn">การกระทำนี้ไม่สามารถยกเลิกได้</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeDelete()">ยกเลิก</button>
+        <button class="btn-danger" onclick="confirmDelete()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ลบคอร์ส
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../courses-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

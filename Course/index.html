@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Course Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('aich_theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');
+      document.documentElement.setAttribute('data-theme',t);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">AI Course <span class="logo-accent">Hub</span></span>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <div class="user-menu" id="userMenu" style="display:none;">
+        <div class="avatar" id="avatarBtn">
+          <span id="avatarInitial">U</span>
+        </div>
+        <div class="dropdown" id="dropdown">
+          <!-- User info -->
+          <div class="dropdown-user">
+            <div class="dropdown-avatar-lg" id="dropdownAvatarLg">U</div>
+            <div class="dropdown-info">
+              <div class="dropdown-name" id="dropdownName">User</div>
+              <div class="dropdown-email" id="dropdownEmail">user@email.com</div>
+            </div>
+          </div>
+          <hr class="dropdown-divider" />
+          <!-- Actions -->
+          <a class="dropdown-item admin-only" id="manageBtn" href="../Admin/index.html" style="display:none;">
+            <span class="dropdown-item-icon">⚙️</span>
+            Manage
+          </a>
+          <hr class="dropdown-divider admin-only" id="manageDivider" style="display:none;" />
+          <button class="dropdown-item" id="switchAccountBtn">
+            <span class="dropdown-item-icon">🔄</span>
+            สลับบัญชี
+          </button>
+          <hr class="dropdown-divider" />
+          <button class="dropdown-item danger" onclick="logout()">
+            <span class="dropdown-item-icon">🚪</span>
+            ออกจากระบบ
+          </button>
+        </div>
+      </div>
+      <div class="auth-buttons" id="authButtons">
+        <a href="../Login/signin.html" class="btn-outline">เข้าสู่ระบบ</a>
+        <a href="../Login/signup.html" class="btn-primary">สมัครสมาชิก</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile category pills (hidden on desktop) -->
+  <div class="mobile-cats-wrap" id="mobileCatsWrap">
+    <div class="mobile-cats">
+      <button class="mobile-cat active" data-category="all">🗂️ ทั้งหมด</button>
+      <button class="mobile-cat" data-category="beginner">🌱 ผู้เริ่มต้น</button>
+      <button class="mobile-cat" data-category="machine-learning">📊 ML</button>
+      <button class="mobile-cat" data-category="deep-learning">🧠 Deep Learning</button>
+      <button class="mobile-cat" data-category="nlp">💬 NLP</button>
+      <button class="mobile-cat" data-category="computer-vision">👁️ Computer Vision</button>
+      <button class="mobile-cat" data-category="llm">🚀 LLM & Prompt</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <p class="sidebar-label">หมวดหมู่</p>
+      <ul class="category-list">
+        <li class="category-item active" data-category="all">
+          <span class="cat-icon">🗂️</span> ทั้งหมด
+        </li>
+        <li class="category-item" data-category="beginner">
+          <span class="cat-icon">🌱</span> สำหรับผู้เริ่มต้น
+        </li>
+        <li class="category-item" data-category="machine-learning">
+          <span class="cat-icon">📊</span> Machine Learning
+        </li>
+        <li class="category-item" data-category="deep-learning">
+          <span class="cat-icon">🧠</span> Deep Learning
+        </li>
+        <li class="category-item" data-category="nlp">
+          <span class="cat-icon">💬</span> NLP
+        </li>
+        <li class="category-item" data-category="computer-vision">
+          <span class="cat-icon">👁️</span> Computer Vision
+        </li>
+        <li class="category-item" data-category="llm">
+          <span class="cat-icon">🚀</span> LLM & Prompt
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top bar -->
+      <div class="topbar">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-bar" placeholder="ค้นหาคอร์ส..." />
+        </div>
+        <div class="sort-wrapper">
+          <span class="sort-icon">↕️</span>
+          <select id="sortSelect" class="sort-select">
+            <option value="default">เรียงลำดับ</option>
+            <option value="title-asc">ชื่อ A → Z</option>
+            <option value="title-desc">ชื่อ Z → A</option>
+            <option value="level-asc">ระดับ: ง่าย → ยาก</option>
+            <option value="level-desc">ระดับ: ยาก → ง่าย</option>
+            <option value="duration-asc">ระยะเวลา: น้อย → มาก</option>
+            <option value="duration-desc">ระยะเวลา: มาก → น้อย</option>
+          </select>
+        </div>
+        <div class="course-count" id="courseCount">20 คอร์ส</div>
+      </div>
+
+      <!-- Section title -->
+      <div class="section-header">
+        <h1 class="section-title" id="sectionTitle">คอร์สทั้งหมด</h1>
+        <p class="section-sub">เรียนรู้ AI จากพื้นฐานจนถึงระดับมืออาชีพ</p>
+      </div>
+
+      <!-- Course Grid -->
+      <div class="course-grid" id="courseGrid"></div>
+      <p class="no-result" id="noResult" style="display:none;">ไม่พบคอร์สที่ค้นหา</p>
+    </main>
+  </div>
+
+  <!-- Course Detail Modal -->
+  <div class="course-modal-overlay" id="courseModal">
+    <div class="course-modal-card">
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      <div class="modal-top">
+        <div class="modal-icon" id="modalIcon">📈</div>
+        <div class="modal-top-info">
+          <span class="course-tag" id="modalTag"></span>
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <div class="modal-provider" id="modalProvider"></div>
+        </div>
+      </div>
+      <p class="modal-detail" id="modalDetail"></p>
+      <div class="modal-meta">
+        <span>⏱ <strong id="modalDuration"></strong></span>
+        <span class="level-badge" id="modalLevel"></span>
+        <span class="modal-price" id="modalPrice"></span>
+      </div>
+      <a class="modal-go-btn" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
+        🌐 เปิดเว็บไซต์คอร์ส
+      </a>
+    </div>
+  </div>
+
+  <script src="../courses-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

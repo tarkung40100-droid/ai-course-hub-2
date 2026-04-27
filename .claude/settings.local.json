@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm \"c:/Users/TarTui007/AI Course Hub/Course\")",
+      "Bash(mkdir \"c:/Users/TarTui007/AI Course Hub/Course\")",
+      "Bash(curl -sL \"https://www.google.com/s2/favicons?sz=128&domain=coursera.org\" -o coursera.png)",
+      "Bash(curl -sL \"https://www.google.com/s2/favicons?sz=128&domain=fast.ai\" -o fastai.png)",
+      "Bash(curl -sL \"https://www.google.com/s2/favicons?sz=128&domain=developers.google.com\" -o google.png)",
+      "Bash(curl -sL \"https://www.google.com/s2/favicons?sz=128&domain=stanford.edu\" -o stanford.png)",
+      "Bash(curl -sL \"https://www.google.com/s2/favicons?sz=128&domain=huggingface.co\" -o huggingface.png)",
+      "Bash(npx --version)",
+      "PowerShell(node --version)",
+      "PowerShell(npx --version)",
+      "PowerShell(python --version)",
+      "PowerShell(py --version)",
+      "PowerShell(python3 --version)",
+      "PowerShell(php --version 2>&1)",
+      "PowerShell(ruby --version 2>&1)",
+      "PowerShell(go version 2>&1)",
+      "PowerShell(netstat -ano)"
+    ]
+  }
+}
